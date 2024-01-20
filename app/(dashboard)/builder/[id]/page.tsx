@@ -14,7 +14,9 @@ const Builder = async ({
   if (!form) {
     throw new Error("Form not Found!");
   }
-  return <FormBuilder form={form} />;
+
+  const parsedContent = JSON.parse(form.content);
+  return <FormBuilder form={form} content={parsedContent} />;
 };
 
 export default Builder;

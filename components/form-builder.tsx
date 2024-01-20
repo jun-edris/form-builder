@@ -8,7 +8,6 @@ import PublishFormBtn from "./publish-form-btn";
 import Designer from "./designer";
 import {
   DndContext,
-  DragOverlay,
   MouseSensor,
   TouchSensor,
   useSensor,
@@ -24,8 +23,8 @@ import Link from "next/link";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import Confetti from "react-confetti";
 
-const FormBuilder = ({ form }: { form: Form }) => {
-  const { setElements } = useDesigner();
+const FormBuilder = ({ form, content }: { form: Form; content: [] }) => {
+  const { setElements, setSelectedElement } = useDesigner();
   const [isReady, setIsReady] = useState(false);
 
   const mouseSensor = useSensor(MouseSensor, {
@@ -47,10 +46,11 @@ const FormBuilder = ({ form }: { form: Form }) => {
     if (isReady) return;
     const elements = JSON.parse(form.content);
     setElements(elements);
+    setSelectedElement(null);
     const readyTimeout = setTimeout(() => setIsReady(true), 500);
 
     return () => clearTimeout(readyTimeout);
-  }, [form, setElements, isReady]);
+  }, [form, setElements, isReady, setSelectedElement]);
 
   if (!isReady) {
     return (
@@ -94,7 +94,7 @@ const FormBuilder = ({ form }: { form: Form }) => {
                 Copy Link
               </Button>
             </div>
-            <div className="fled justify-between">
+            <div className="flex justify-between">
               <Button variant="link" asChild>
                 <Link href="/">
                   <BsArrowLeft />
@@ -126,7 +126,7 @@ const FormBuilder = ({ form }: { form: Form }) => {
             {!form.published && (
               <>
                 <SaveFormBtn id={form.id} />
-                <PublishFormBtn id={form.id} />
+                {content.length > 0 && <PublishFormBtn id={form.id} />}
               </>
             )}
           </div>

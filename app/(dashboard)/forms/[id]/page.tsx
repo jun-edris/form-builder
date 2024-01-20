@@ -1,15 +1,35 @@
 import { GetFormById } from "@/actions/form";
-import FormBuilder from "@/components/form-builder";
-import FormLinkShare from "@/components/form-link";
+import { Input } from "@/components/ui/input";
 import StatCard from "@/components/stat-card";
 import SubmissionsTable from "@/components/submission-table";
-import VisitBtn from "@/components/visit-btn";
+import { Button } from "@/components/ui/button";
+import dynamic from "next/dynamic";
 import React from "react";
-import { FaWpforms } from "react-icons/fa";
+import { FaSpinner, FaWpforms } from "react-icons/fa";
 import { HiCursorClick } from "react-icons/hi";
 import { LuView } from "react-icons/lu";
 import { TbArrowBounce } from "react-icons/tb";
 
+const DynamicVisitBtn = dynamic(() => import("@/components/visit-btn"), {
+  ssr: false,
+  loading: () => (
+    <Button>
+      <FaSpinner className="animate-spin" />
+    </Button>
+  ),
+});
+
+const DynamicFormLinkShare = dynamic(() => import("@/components/form-link"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex flex-grow gap-4 items-center">
+      <Input readOnly className="w-full" placeholder="https://........" />
+      <Button className="w-[250px]">
+        <FaSpinner className="animate-spin" />
+      </Button>
+    </div>
+  ),
+});
 const FormDetails = async ({
   params,
 }: {
@@ -38,12 +58,12 @@ const FormDetails = async ({
       <div className="py-10 border-b border-muted">
         <div className="flex justify-between container">
           <h1 className="text-4xl font-bold truncate">{form.name}</h1>
-          <VisitBtn shareUrl={form.shareURL} />
+          <DynamicVisitBtn shareUrl={form.shareURL} />
         </div>
       </div>
       <div className="py-4 border-b border-muted">
         <div className="container flex gap-2 items-center justify-between">
-          <FormLinkShare shareUrl={form.shareURL} />
+          <DynamicFormLinkShare shareUrl={form.shareURL} />
         </div>
       </div>
       <div className="w-full pt-8 gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 container ">
@@ -75,7 +95,7 @@ const FormDetails = async ({
           title="Bounce Rate"
           icon={<TbArrowBounce className="text-red-600" />}
           helperText="Visits that leave without interacting"
-          value={submissionRate.toLocaleString() + "%" || ""}
+          value={bounceRate.toLocaleString() + "%" || ""}
           loading={false}
           className="shadow-md shadow-red-600"
         />

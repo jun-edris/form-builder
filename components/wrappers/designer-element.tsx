@@ -104,7 +104,7 @@ const DesignerElementWrapper = ({
       )}
       <div
         className={cn(
-          "flex w-full h-[120px] items-cetner rounded-md bg-accent/40 px-4 py-2 pointer-events-none",
+          "flex w-full h-[120px] items-center rounded-md bg-accent/40 px-4 py-2 pointer-events-none",
           mouseIsOver && "opacity-30"
         )}
       >

@@ -6,7 +6,10 @@ import { UpdateFormContent } from "@/actions/form";
 import { toast } from "./ui/use-toast";
 import { FaSpinner } from "react-icons/fa";
 
+import { useRouter } from "next/navigation";
+
 const SaveFormBtn = ({ id }: { id: number }) => {
+  const router = useRouter();
   const { elements } = useDesigner();
   const [loading, startTransition] = useTransition();
 
@@ -16,6 +19,7 @@ const SaveFormBtn = ({ id }: { id: number }) => {
       await UpdateFormContent(id, jsonElements);
 
       toast({ title: "Success", description: "Your form has been saved!" });
+      router.refresh();
     } catch (error) {
       toast({ title: "Error", description: "Something went wrong!" });
     }

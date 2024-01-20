@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useCallback, useRef, useState, useTransition } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { FormElementInstance, FormElements } from "./form-elements";
 import { Button } from "./ui/button";
 import { HiCursorClick } from "react-icons/hi";
@@ -15,6 +21,7 @@ const FormSubmit = ({
   formUrl: string;
   content: FormElementInstance[];
 }) => {
+  const [unsavedChanges, setunsavedChanges] = useState(true);
   const formValues = useRef<{ [key: string]: string }>({});
   const formErrors = useRef<{ [key: string]: boolean }>({});
   const [renderKey, setRenderKey] = useState(new Date().getTime());
@@ -62,6 +69,7 @@ const FormSubmit = ({
 
       await SubmitForm(formUrl, jsonContent);
       setSubmitted(true);
+      setunsavedChanges(false);
 
       toast({
         title: "Success",
@@ -75,6 +83,30 @@ const FormSubmit = ({
       });
     }
   };
+
+  useEffect(() => {
+    const warningText =
+      "You have unsaved changes - are you sure you wish to leave this page?";
+    const handleWindowClose = (e: {
+      preventDefault: () => void;
+      returnValue: string;
+    }) => {
+      if (!unsavedChanges) return;
+      e.preventDefault();
+      return (e.returnValue = warningText);
+    };
+    const handleBrowseAway = () => {
+      if (!unsavedChanges) return;
+      if (window.confirm(warningText)) return;
+      throw "routeChange aborted.";
+    };
+    window.addEventListener("beforeunload", handleWindowClose);
+    window.addEventListener("beforeunload", handleBrowseAway);
+    return () => {
+      window.removeEventListener("beforeunload", handleWindowClose);
+      window.removeEventListener("beforeunload", handleBrowseAway);
+    };
+  }, [unsavedChanges]);
 
   if (submitted) {
     return (

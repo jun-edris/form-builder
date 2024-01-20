@@ -36,7 +36,7 @@ const FormCard = ({ form }: { form: Form }) => {
               <LuView className="text-muted-foreground" />
               <span>{form.visits.toLocaleString()}</span>
               <FaWpforms className="text-muted-foreground" />
-              <span>{form.visits.toLocaleString()}</span>
+              <span>{form.submissions.toLocaleString()}</span>
             </span>
           )}
         </CardDescription>
