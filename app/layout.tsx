@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import DesignerContextProvider from "@/components/context/designer";
 import NextTopLoader from "nextjs-toploader";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,6 +34,7 @@ export default function RootLayout({
             >
               {children}
               <Toaster />
+              <Analytics />
             </ThemeProvider>
           </DesignerContextProvider>
         </body>
