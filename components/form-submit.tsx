@@ -21,7 +21,7 @@ const FormSubmit = ({
   formUrl: string;
   content: FormElementInstance[];
 }) => {
-  const [unsavedChanges, setunsavedChanges] = useState(true);
+  const [unsavedChanges, setUnsavedChanges] = useState(true);
   const formValues = useRef<{ [key: string]: string }>({});
   const formErrors = useRef<{ [key: string]: boolean }>({});
   const [renderKey, setRenderKey] = useState(new Date().getTime());
@@ -69,11 +69,11 @@ const FormSubmit = ({
 
       await SubmitForm(formUrl, jsonContent);
       setSubmitted(true);
-      setunsavedChanges(false);
+      setUnsavedChanges(false);
 
       toast({
         title: "Success",
-        description: "Please check the form for errors",
+        description: "Form submitted successfully",
       });
     } catch (error) {
       toast({
@@ -85,26 +85,13 @@ const FormSubmit = ({
   };
 
   useEffect(() => {
-    const warningText =
-      "You have unsaved changes - are you sure you wish to leave this page?";
-    const handleWindowClose = (e: {
-      preventDefault: () => void;
-      returnValue: string;
-    }) => {
+    const handleWindowClose = (e: BeforeUnloadEvent) => {
       if (!unsavedChanges) return;
       e.preventDefault();
-      return (e.returnValue = warningText);
-    };
-    const handleBrowseAway = () => {
-      if (!unsavedChanges) return;
-      if (window.confirm(warningText)) return;
-      throw "routeChange aborted.";
     };
     window.addEventListener("beforeunload", handleWindowClose);
-    window.addEventListener("beforeunload", handleBrowseAway);
     return () => {
       window.removeEventListener("beforeunload", handleWindowClose);
-      window.removeEventListener("beforeunload", handleBrowseAway);
     };
   }, [unsavedChanges]);
 

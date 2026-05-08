@@ -82,8 +82,6 @@ const Designer = () => {
           indexForNewElement = overElementIndex + 1;
         }
 
-        if (isDroppingOverDesignerElementTopHalf) {
-        }
         addElement(indexForNewElement, newElement);
         return;
       }

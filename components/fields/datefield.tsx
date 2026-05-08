@@ -1,6 +1,5 @@
 "use client";
 
-import { MdTextFields } from "react-icons/md";
 import {
   ElementsType,
   FormElement,
@@ -58,7 +57,7 @@ const DesignerComponent = ({
   elementInstance: FormElementInstance;
 }) => {
   const element = elementInstance as CustomInstance;
-  const { label, required, placeholder, helperText } = element.extraAttributes;
+  const { label, required, helperText } = element.extraAttributes;
 
   return (
     <div className="flex flex-col gap-2 w-full">
@@ -173,7 +172,6 @@ const PropertiesComponent = ({
             <FormItem className="flex items-center justify-between rounded-lg border p-3 shadow-sm">
               <div className="space-y-0.5">
                 <FormLabel>Required</FormLabel>
-                <FormControl></FormControl>
                 <FormDescription>
                   The helper text of the field. <br /> It will be displayed
                   below the field.

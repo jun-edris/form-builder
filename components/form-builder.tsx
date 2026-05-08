@@ -79,7 +79,7 @@ const FormBuilder = ({ form, content }: { form: Form; content: [] }) => {
             <h3 className="text-xl text-muted-foreground border-b pb-10">
               Anyone with the link can view and submit the form
             </h3>
-            <div className="my-4 fkex fkex-col ga-2 items-center w-full border-b pb-4">
+            <div className="my-4 flex flex-col gap-2 items-center w-full border-b pb-4">
               <Input className="w-full" readOnly value={shareUrl} />
               <Button
                 className="mt-2 w-full"

@@ -18,8 +18,8 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <CreateFormBtn />
         <Suspense
-          fallback={Array(4).map((el) => (
-            <FormCardSkeleton key={el} />
+          fallback={Array.from({ length: 4 }, (_, i) => (
+            <FormCardSkeleton key={i} />
           ))}
         >
           <FormCards />

@@ -1,12 +1,17 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { ImShare } from "react-icons/im";
 import { toast } from "./ui/use-toast";
 
 const FormLinkShare = ({ shareUrl }: { shareUrl: string }) => {
-  let shareLink = `${window.location.origin}/submit/${shareUrl}`;
+  const [shareLink, setShareLink] = useState("");
+
+  useEffect(() => {
+    setShareLink(`${window.location.origin}/submit/${shareUrl}`);
+  }, [shareUrl]);
 
   const toCopyLink = () => {
     navigator.clipboard.writeText(shareLink);

@@ -5,11 +5,9 @@ import React from "react";
 const Builder = async ({
   params,
 }: {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }) => {
-  const { id } = params;
+  const { id } = await params;
   const form = await GetFormById(Number(id));
   if (!form) {
     throw new Error("Form not Found!");

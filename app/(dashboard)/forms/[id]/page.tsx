@@ -1,43 +1,19 @@
 import { GetFormById } from "@/actions/form";
-import { Input } from "@/components/ui/input";
 import StatCard from "@/components/stat-card";
 import SubmissionsTable from "@/components/submission-table";
-import { Button } from "@/components/ui/button";
-import dynamic from "next/dynamic";
+import VisitBtn from "@/components/visit-btn";
+import FormLinkShare from "@/components/form-link";
 import React from "react";
-import { FaSpinner, FaWpforms } from "react-icons/fa";
+import { FaWpforms } from "react-icons/fa";
 import { HiCursorClick } from "react-icons/hi";
 import { LuView } from "react-icons/lu";
 import { TbArrowBounce } from "react-icons/tb";
-
-const DynamicVisitBtn = dynamic(() => import("@/components/visit-btn"), {
-  ssr: false,
-  loading: () => (
-    <Button>
-      <FaSpinner className="animate-spin" />
-    </Button>
-  ),
-});
-
-const DynamicFormLinkShare = dynamic(() => import("@/components/form-link"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex flex-grow gap-4 items-center">
-      <Input readOnly className="w-full" placeholder="https://........" />
-      <Button className="w-[250px]">
-        <FaSpinner className="animate-spin" />
-      </Button>
-    </div>
-  ),
-});
 const FormDetails = async ({
   params,
 }: {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }) => {
-  const { id } = params;
+  const { id } = await params;
   const form = await GetFormById(Number(id));
 
   if (!form) {
@@ -58,12 +34,12 @@ const FormDetails = async ({
       <div className="py-10 border-b border-muted">
         <div className="flex justify-between container">
           <h1 className="text-4xl font-bold truncate">{form.name}</h1>
-          <DynamicVisitBtn shareUrl={form.shareURL} />
+          <VisitBtn shareUrl={form.shareURL} />
         </div>
       </div>
       <div className="py-4 border-b border-muted">
         <div className="container flex gap-2 items-center justify-between">
-          <DynamicFormLinkShare shareUrl={form.shareURL} />
+          <FormLinkShare shareUrl={form.shareURL} />
         </div>
       </div>
       <div className="w-full pt-8 gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 container ">
