@@ -14,7 +14,7 @@ const StatCard = ({
   value: string;
   icon: ReactNode;
   helperText: string;
-  loading: Boolean;
+  loading: boolean;
   className: string;
 }) => {
   return (

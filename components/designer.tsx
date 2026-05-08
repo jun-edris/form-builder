@@ -5,7 +5,6 @@ import { DragEndEvent, useDndMonitor, useDroppable } from "@dnd-kit/core";
 import { cn } from "@/lib/utils";
 import {
   ElementsType,
-  FormElementInstance,
   FormElements,
 } from "./form-elements";
 import useDesigner from "./hooks/useDesigner";

@@ -4,7 +4,6 @@ import {
   ElementsType,
   FormElement,
   FormElementInstance,
-  SubmitFunctionType,
 } from "../form-elements";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
@@ -16,7 +15,6 @@ import useDesigner from "../hooks/useDesigner";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,

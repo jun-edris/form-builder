@@ -75,7 +75,7 @@ const FormSubmit = ({
         title: "Success",
         description: "Form submitted successfully",
       });
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Something went wrong!",

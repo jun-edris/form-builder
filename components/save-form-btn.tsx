@@ -20,7 +20,7 @@ const SaveFormBtn = ({ id }: { id: number }) => {
 
       toast({ title: "Success", description: "Your form has been saved!" });
       router.refresh();
-    } catch (error) {
+    } catch {
       toast({ title: "Error", description: "Something went wrong!" });
     }
   };

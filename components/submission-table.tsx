@@ -1,5 +1,5 @@
 import { GetFormWithSubmissions } from "@/actions/form";
-import React, { ElementType, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { ElementsType, FormElementInstance } from "./form-elements";
 import {
   Table,
@@ -52,8 +52,8 @@ const SubmissionsTable = async ({ id }: { id: number }) => {
       case "TextAreafield":
         columns.push({
           id: element.id,
-          label: element.extraAttributes?.label,
-          required: element.extraAttributes?.required,
+          label: element.extraAttributes?.label as string,
+          required: element.extraAttributes?.required as boolean,
           type: element.type,
         });
         break;

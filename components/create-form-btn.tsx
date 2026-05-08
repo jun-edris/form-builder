@@ -40,7 +40,7 @@ const CreateFormBtn = () => {
       });
 
       router.push(`/builder/${formId}`);
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Something went wrong!",

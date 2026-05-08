@@ -29,7 +29,7 @@ const PublishFormBtn = ({ id }: { id: number }) => {
         description: "Your form is now available to the public",
       });
       router.refresh();
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Something went wrong!",

@@ -4,10 +4,8 @@ import {
   ElementsType,
   FormElement,
   FormElementInstance,
-  SubmitFunctionType,
 } from "../form-elements";
 import { Label } from "../ui/label";
-import { Input } from "../ui/input";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,13 +14,12 @@ import useDesigner from "../hooks/useDesigner";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { LuHeading1, LuSeparatorHorizontal } from "react-icons/lu";
+import { LuSeparatorHorizontal } from "react-icons/lu";
 import { Slider } from "../ui/slider";
 
 const type: ElementsType = "Spacerfield";
